@@ -1,0 +1,33 @@
+contetn template: 
+
+
+<main>
+    <div class="container-fluid mt-4">
+         <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2 >Quản Lý Quyền Truy Cập Của Tài Khoản</h2></div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dòng này chưa có ý tưởng ^^</li>
+        </ol>
+        <div class="card mb-4 mt-2">
+            <div class="card-header">
+                <i class="fa fa-list mr-1"></i>
+                Table Tittle
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0" style="background-color:white;color:black">
+                        <thead>
+                            <tr>
+                                <th>Mã Danh Mục </th>
+                               
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

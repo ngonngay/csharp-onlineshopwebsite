@@ -1,0 +1,128 @@
+﻿.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+/* thiết lập style cho class active */
+.pagination a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+/* thêm màu nền khi người dùng hover vào class không active */
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+/*css cho orderdetail iframe*/
+.nav-tabs .nav-link {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    color: #777;
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    color: #333;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #333;
+    background-color: #fff;
+    border-color: #ddd #ddd #fff;
+}
+.nav-tabs-bottom .nav-link {
+    border-width: 0;
+}
+.header-elements-inline {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+/*end*/
+.cus-iframe-css {
+   width:1000px;
+   height:600px;
+}
+.table button.manageImage {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    color: #ffffff;
+    background: #005CC8;
+    border: none;
+    border-radius: 4px;
+}
+@media(min-width: 500px) {
+    .cus-iframe-css {
+        width: 420px;
+        height: 550px;
+    }
+
+    .simplemodal-container {
+        left: 5% !important;
+        top: 12.5% !important;
+    }
+}
+@media(min-width: 576px) {
+    .cus-iframe-css {
+        width: 500px;
+        height: 550px;
+    }
+
+    .simplemodal-container {
+        left: 5% !important;
+        top: 12.5% !important;
+    }
+}
+@media(min-width: 768px) {
+    .cus-iframe-css {
+        width: 650px;
+        height: 550px;
+    }
+
+    .simplemodal-container {
+        left: 6% !important;
+        top: 12.5% !important;
+    }
+}
+@media(min-width: 992px) {
+    .cus-iframe-css {
+        width: 600px;
+        height: 600px;
+    }
+    .simplemodal-container {
+
+        left: 30% !important;
+        top: 12.5% !important;
+    }
+}
+@media(min-width: 1224px) {
+    .cus-iframe-css {
+        width: 920px;
+        height: 600px;
+    }
+
+    .simplemodal-container {
+        left: 20% !important;
+        z-index:1200 !important;
+        /*top: 12.5% !important;*/
+    }
+}
+@media(min-width: 1400px) {
+    .cus-iframe-css {
+        width: 1000px;
+        height: 600px;
+    }
+
+    .simplemodal-container {
+        left: 20% !important;
+        z-index: 1200 !important;
+        top: 12.5% !important;
+    }
+}
+
+

@@ -1,0 +1,86 @@
+﻿@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+@section scripts{
+    <script src="/Client/js/checkout.js"></script>
+
+    <script>
+        var checkoutController = new CheckoutController();
+        checkoutController.initialize();
+    </script>
+}
+@section Css{
+    <link href="~/Client/css/Cart/Index.css" rel="stylesheet" />
+    <link href="~/Client/css/Cart/checkout.css" rel="stylesheet" />
+}
+
+<!-- Checkout Start -->
+<div class="checkout">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="checkout-inner">
+                    <div class="billing-address">
+                        <h2>Thông tin Đơn hàng</h2> <div class="col-md-12">
+
+                            <div class="shipping-info cart-summary ">
+                                <p class="heading address__heading--flex"><span class="text">Địa chỉ nhận hàng&nbsp;:&nbsp;</span><a data-view-id="cart_shipping_location.change" class="link" asp-controller="Cart" asp-action="SelectAddressCard">Thay đổi</a></p>
+                                <p class=""> Tên người nhận&nbsp;:&nbsp;<b class="">@Model.addressCardViewModel.FullName</b></p>
+                                <p><b class="phone">Số điện thoại : @Model.addressCardViewModel.phoneNumber</b></p>
+                                <p class="address">Địa chỉ nhận hàng : @Model.addressCardViewModel.addressCDW</p>
+                            </div>
+                        </div>
+                        <h2>Chi Tiết Đơn Hàng</h2>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="cart-page-inner">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="cart-detail">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="checkout-inner">
+                    <div class="checkout-summary">
+                        <h1>Tổng Đơn Hàng</h1>
+                        <p>Số Lượng Sản Phẩm<span id="amount"></span></p>
+                        <p class="sub-total">Tổng Giá Sản Phẩm<span id="lbl_total"></span></p>
+                        <p class="ship-cost">Phí vận chuyển<span>0</span></p>
+                        <h2>Tổng Hóa Đơn<span id="lbl_grandTotal"></span></h2>
+                    </div>
+
+                    <div class="checkout-payment">
+                        <div class="payment-methods">
+                            <h1>Phương Thúc Thanh Toán</h1>
+
+                            <div class="payment-method">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="payment-5" name="payment">
+                                    <label class="custom-control-label" for="payment-5">Thanh toán khi nhận hàng</label>
+                                </div>
+                                <div class="payment-content" id="payment-5-show">
+                                    <p>
+                                        Giao hàng thu tiền hộ (COD-Cash on delivery) : Quý Khách sẽ trả tiền khi nhận hàng và số tiền này sẽ do shiper (người giao hàng) nhận.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-btn">
+                            <button id="CreateOrder">Đặt Hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Checkout End -->

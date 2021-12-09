@@ -1,0 +1,92 @@
+﻿@page
+@model Project.AdminApp.Areas.Identity.Pages.Account.Manage.OrderDetailModel
+@{
+    ViewData["Title"] = "Chi Tiết Đơn Hàng";
+    ViewData["ActivePage"] = ManageNavPages.Order;
+}
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="manage-order__orderDetail order-detail--wrapper">
+    <div class="styles__OrderDetail wrapper-content">
+        <div class="heading">
+            <span>Chi tiết đơn hàng #654145188</span>
+            <span class="split">-</span>
+            <span class="status">Huỷ</span>
+        </div>
+        <div class="created-date">Ngày đặt hàng: @Model.order.OrderDate</div>
+        <div class="styles__Styled-OrderInfo order-info--wrapper">
+            <div class=" order-info--item">
+                <div class="title">Địa chỉ người nhận</div>
+                <div class="content">
+                    <p class="name">@Model.order.ShipName</p>
+                    <p class="address"><span>Địa chỉ: </span>@String.Join(", ",Model.order.ShipAddress, Model.order.Districst, Model.order.City)</p>
+                    <p class="phone"><span>Điện thoại: </span>@Model.order.ShipPhoneNumber</p>
+                </div>
+            </div>
+            <div class="order-info--item">
+                <div class="title">Hình thức giao hàng</div>
+                <div class="content">
+                    <p>
+                        <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/tikinow/tiki-now-15@2x.png" width="58" alt="TikiNow">
+                        <span> Giao Siêu Tốc 2H</span>
+                    </p><p>Giao trước 10:00 ngày mai</p><p>Phí vận chuyển: 68.000đ</p>
+                </div>
+            </div>
+            <div class="order-info--item">
+                <div class="title">Hình thức thanh toán</div>
+                <div class="content"><p class="">Thanh toán tiền mặt khi nhận hàng</p></div>
+            </div>
+        </div>
+        <table class="order-detail--items">
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Giảm giá</th>
+                    <th>Tạm tính</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.order.ordertItem.Count() > 0)
+                {
+                    @foreach (var item in Model.order.ordertItem)
+                    {
+                        <tr>
+                            <td>
+                                <div class="product-item">
+                                    <img src="@item.Image" >
+                                    <div class="product-info">
+                                        <a class="product-name" href="">@String.Join(" - ", item.Name,item.Size)</a>
+                                        <p class="product-seller">Cung cấp bởi <a href="/cua-hang/tiki-trading">Tiki Trading</a></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="price"> @String.Format("{0:0,0 vnđ}", item.Price)</td>
+                            <td class="quantity">@item.Quantity</td>
+                            <td class="discount-amount">0 vnđ</td>
+                            <td class="raw-total">@String.Format("{0:0,0 vnđ}",item.total)</td>
+                        </tr>
+                    }
+                }
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"><span>Tạm tính</span></td>
+                    <td>@String.Format("{0:0,0 vnđ}", Model.order.total)</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Phí vận chuyển</span>
+                    </td>
+                    <td>0 vnđ</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><span>Tổng cộng</span></td>
+                    <td><span class="sum">@String.Format("{0:0,0 vnđ}", Model.order.total)</span></td>
+                </tr>
+            </tfoot>
+        </table><a class="view-list-order" asp-page="./ManageOrder"> Quay lại đơn hàng của tôi</a>
+    </div>
+</div>

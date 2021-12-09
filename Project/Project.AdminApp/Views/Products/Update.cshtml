@@ -1,0 +1,185 @@
+﻿@model Project.ViewModels.Products.ProductUpdateRequest
+@{
+    Layout = "_IframeLayout";
+}
+<div class="container-fluid">
+    <h1 class="mt-4">Cập Nhật Thông Tin Sản Phẩm</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Cập Nhật Thông Tin sản phẩm</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-success" asp-action="Detail" asp-controller="Products" asp-route-id="@Model.Id">Về Trang Trước</a>
+        </div>
+        <div class="card-body">
+            <form asp-action="Update" asp-controller="Products" method="post" enctype="multipart/form-data" id="updateProductForm">
+                <input asp-for="Id" class="form-control required" hidden />
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="card p-3">
+                            <div class="form-group mb-2">
+                                <div class="row form-group">
+                                    <label class="col-5 col-lg-3 col-form-label" asp-for="Name">Tên <span class="text-danger">*</span></label>
+                                    <div class="col-7 col-lg-9">
+                                        <input asp-for="Name" class="form-control required" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mb-2">
+                                        <div class="row">
+                                            <label class="col-5 col-lg-6 col-form-label">
+                                                Loại <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-7 col-lg-6 pr-lg-0">
+                                                <select name="typeId" class="required form-control" id="typeId">
+                                                    <option value="1" selected="selected">Sản phẩm</option>
+                                                </select>
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mb-2">
+                                        <div class="row form-group">
+                                            <label class="col-5 col-form-label text-lg-right">Số Lượng</label>
+                                            <div class="col-7 pl-lg-0">
+                                                <input asp-for="Stock" type="number" class="form-control" />
+                                                <span asp-validation-for="Stock" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mb-2">
+                                        <div class="row form-group">
+                                            <label class="col-5 col-lg-6 col-form-label">Giá bán lẻ</label>
+                                            <div class="col-7 col-lg-6 pr-lg-0">
+                                                <input asp-for="Price" type="number" class="form-control" />
+                                                <span asp-validation-for="Price" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mb-2">
+                                        <div class="row">
+                                            <label class="col-5 col-form-label text-lg-right">Trạng thái</label>
+                                            <div class="col-7 pl-lg-0">
+                                                <select name="productStatus" class="form-control" style="align-items:center" asp-items="@ViewBag.ProductStatus">
+                                                </select>
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" asp-for="@Model.IsFeatured">
+                                        <label class="form-check-label" asp-for="@Model.IsFeatured"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="card p-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-2">
+                                        <div class="row">
+                                            <label class="col-5 col-lg-3 col-form-label">Thương hiệu</label>
+                                            <div class="col-7 col-lg-9">
+                                                <select name="brandId" id="brandId"
+                                                        class="select-has-search-box form-control select2-hidden-accessible"
+                                                        data-select2-id="brandId" tabindex="-1" aria-hidden="true">
+                                                    <option value="" data-select2-id="12">- Thương hiệu -</option>
+                                                    <option value="55842">TARTARUSS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mb-2">
+                                        <div class="row">
+                                            <label class="col-5 col-lg-6 col-form-label">Khối lượng</label>
+                                            <div class="col-7 col-lg-6 pr-lg-0">
+                                                <div class="input-group">
+                                                    <input type="text" name="shippingWeight" maxlength="255" placeholder="" class="text-right form-control" id="shippingWeight" autocomplete="off" value="" disabled>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">Gr</span>
+                                                    </div>
+                                                </div>
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mb-2">
+                                        <div class="row">
+                                            <label class="col-5 col-form-label text-lg-right">Đơn vị tính</label>
+                                            <div class="col-7 pl-lg-0">
+                                                <input type="text" name="unit" maxlength="255"
+                                                       placeholder="VD: cái, chiếc, hộp, lon, gói..." id="unit" autocomplete="off"
+                                                       class="form-control" value="" disabled>
+                                                <div class="error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <div class="row">
+                                    <label class="col-5 col-lg-3 col-form-label">Kích thước (cm)</label>
+                                    <div class="col-7 col-lg-9">
+                                        <div class="input-group">
+                                            <input type="text" name="length" maxlength="255" placeholder="Dài" class="text-right form-control" id="length" autocomplete="off" value="" disabled>
+                                            <input type="text" name="width" maxlength="255" placeholder="Rộng" class="text-right form-control" id="width" autocomplete="off" value="" disabled>
+                                            <input type="text" name="height" maxlength="255" placeholder="Cao" class="text-right form-control" id="height" autocomplete="off" value="" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                <div class="row">
+                                    <label class="col-5 col-lg-3 col-form-label">Ảnh đại diện</label>
+                                    <div class="col-7 col-lg-9">
+                                        <div class="uniform-uploader" id="uniform-imageUpload">
+                                            <input asp-for="ThumbnailImage" type="file" id="imageUpload">
+                                            <span asp-validation-for="ThumbnailImage" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12 ">
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"></label>
+                            <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mt-5">
+                    <input type="submit" value="Cập Nhật" class="btn btn-primary" id="btnsubmit"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="/js/myjs.js" type='text/javascript'></script>
+    
+ }

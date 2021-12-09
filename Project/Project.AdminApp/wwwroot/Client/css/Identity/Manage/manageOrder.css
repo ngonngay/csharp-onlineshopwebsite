@@ -1,0 +1,120 @@
+﻿/*//manage order*/
+.dftOUR .order-header, .order-header-mo {
+    display: flex;
+    border-bottom: 1px solid rgb(244, 244, 244);
+}
+
+    .dftOUR .order-header .item-mo {
+        padding: 20px 15px;
+        font-size: 15px;
+        color: rgb(120, 120, 120);
+        min-width: 130px;
+    }
+
+        .dftOUR .order-header .item-mo .value {
+            font-size: 13px;
+            margin-top: 8px;
+            color: rgb(0, 0, 0);
+        }
+
+.dftOUR .order-info h3 {
+    color: rgb(48, 31, 31);
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.dftOUR .order-info .progress-bar {
+    height: 8px;
+    border-radius: 10px;
+    background-color: rgb(241, 241, 241);
+    box-shadow: none;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+    .dftOUR .order-info .progress-bar .current {
+        background-color: rgb(89, 162, 56);
+        background-image: none;
+        box-shadow: none;
+        width: 20%;
+        height: 100%;
+    }
+
+.dftOUR .order-info .progress-status {
+    color: rgb(32, 150, 36);
+    font-size: 13px;
+}
+
+.dftOUR .order-info .product {
+    margin: 10px 0px;
+    display: flex;
+}
+
+    .dftOUR .order-info .product .image {
+        margin-right: 30px;
+        width: 90px;
+        height: 90px;
+    }
+
+    .dftOUR .order-info .product .info {
+        color: rgb(32, 32, 32);
+        font-size: 12px;
+        font-weight: 300;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .dftOUR .order-info .product .info .name {
+            color: rgb(36, 36, 36);
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            outline: none;
+            padding: 8px 0px;
+        }
+
+        .dftOUR .order-info .product .info .seller {
+            padding: 8px 0px;
+        }
+
+        .dftOUR .order-info .product .info .price {
+            font-weight: 400;
+            padding: 8px 0px;
+        }
+
+        .dftOUR .order-info .product .info .qty {
+            padding-top: 8px;
+        }
+
+.dftOUR .order-control {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    padding: 0px 15px 30px;
+}
+
+    .dftOUR .order-control .button-group {
+        display: flex;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+    }
+
+        .dftOUR .order-control .button-group div {
+            width: 177px;
+            height: 39px;
+            border-radius: 4px;
+            background-color: rgb(253, 216, 53);
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.4;
+            color: rgb(74, 74, 74);
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            flex: 0 0 49%;
+            cursor: pointer;
+        }

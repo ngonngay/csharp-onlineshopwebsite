@@ -1,0 +1,13 @@
+﻿@page "/RegisterConfirmation/"
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Xác nhận đăng ký";
+}
+
+
+<div><div class="container-fluid ml-5"><p>
+    <h2>@ViewData["Title"]</h2>
+    Một email đã gửi đến cho bạn, bạn cần mở email làm theo hướng dẫn trong email sau đó
+    <a href="@Model.UrlContinue">Bấm vào đây để tiếp tục</a>
+    <div ><a asp-page="./ResendEmailConfirmation">Gửi lại mail xác nhận</a></div>
+</p></div></div>

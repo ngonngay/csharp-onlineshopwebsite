@@ -1,0 +1,18 @@
+﻿@inject SignInManager<AppUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class=" nav-pills flex-column" style="list-style-type:none">
+    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Cập Nhật Thông Tin Cá Nhân</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.NotificationNavClass(ViewContext)" id="notification" asp-page="./Notification">Thông báo của bạn <span id="nav-news"></span></a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.OrderNavClass(ViewContext)" id="order" asp-page="./ManageOrder">Đơn hàng của bạn </a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.AddressNavClass(ViewContext)" id="addressCard" asp-page="./Address">Sổ địa chỉ</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Mật Khẩu</a></li>
+
+    @if (hasExternalLogins)
+    {
+<li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Dịch Vụ Ngoài</a></li>}
+    <!--<li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Xác thực nhiều yếu tố</a></li>-->
+    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Thông Tin Cá Nhân</a></li>
+</ul>

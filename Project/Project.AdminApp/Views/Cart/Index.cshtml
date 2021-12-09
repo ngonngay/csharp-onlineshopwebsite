@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Project.Data.Entities
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@model AddressCardViewModel
+@{ ViewData["Title"] = "Index"; }
+
+@section scripts{
+    <script src="/Client/js/cart.js"></script>
+
+    <script>
+        var cartController = new CartController();
+        cartController.initialize();
+    </script>
+}
+@section Css{
+    <link href="~/Client/css/Cart/Index.css" rel="stylesheet" />
+}
+
+<!-- Breadcrumb Start -->
+<div class="breadcrumb-wrap">
+    <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Giỏ hàng</li>
+        </ul>
+    </div>
+</div>
+<input id="has-item" data-has="0" style="display:none" />
+<!-- Breadcrumb End -->
+<!-- Cart Start -->
+<div class="cart-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="cart-page-inner">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="cart">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="cart-page-inner">
+                    <div class="row">
+                        @if (SignInManager.IsSignedIn(User) && Model != null)
+                        {
+                            <div class="col-md-12">
+                                <div class="styles__StyledShippingAddress-sc-1sjj51k-0 cart-summary ">
+                                    <p class="heading address__heading--flex"><span class="text">Địa chỉ nhận hàng</span><a data-view-id="cart_shipping_location.change" class="link" asp-controller="Cart" asp-action="SelectAddressCard">Thay đổi</a></p>
+                                    <p class="title"><b class="name">(@Model.FullName)</b><b class="phone">  @Model.phoneNumber</b></p>
+                                    <p class="address">@Model.addressCDW</p>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-md-12">
+                            <div class="coupon">
+                                <input type="text" placeholder="Nhập mã khuyến mãi" readonly>
+                                <button disabled>Nhập mã</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div class="cart-summary">
+                                <div class="cart-content">
+                                    <h1>Tạm Tính</h1>
+                                    <p>Tổng Giá :<span id="lbl_total"></span></p>
+                                    @*<p>Shipping Cost<span>1</span></p>*@
+                                    <h2>Thành Tiền<span id="lbl_grandTotal">0</span></h2>
+                                </div>
+                                <div class="cart-btn">
+                                    <button onclick="window.location.reload()">Cập nhật giỏ hàng</button>
+
+                                    <button id="btn-checkout-drive">Thanh Toán</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart End -->

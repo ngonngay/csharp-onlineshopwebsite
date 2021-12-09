@@ -1,0 +1,157 @@
+﻿@model UserViewModel
+@{
+    Layout = "_IframeLayout";
+}
+
+
+<main class="container-fluid mt-5">
+    <div class="container-fluid d-inline-flex justify-content-center mb-3 "> <h2>Thông tin Khách Hàng</h2></div>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Khách Hàng : @Model.Fullname</li>
+    </ol>
+    <div class="container d-inline-flex justify-content-end ">
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Thao tác
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" >Cập nhật</a>
+            </div>
+        </div>
+    </div>
+    <div id="tabContent" class="tab-content">
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-lg-8 p-4">
+                    <div id="boxCustomer" class="card mb-5">
+                        <div class="card-header bg-light header-elements-inline py-2">
+                            <h5 class="card-title font-weight-semibold">
+                                <i class="fa fa-user-circle mr-1"></i> Thông tin
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="mb-2">
+                                        <i class="fa fa-user mr-1" title="" data-toggle="tooltip" data-original-title="Họ và tên"></i>
+                                        @Model.UserName
+                                    </div>
+                                    <div class="mb-2">
+                                        <i class="fa fa-phone-alt mr-1" title="" data-toggle="tooltip" data-original-title="Điện thoại"></i>
+                                        @Model.PhoneNumber
+                                    </div>
+                                    <div><i class="fa fa-map-marker mr-1" title="" data-toggle="tooltip" data-original-title="Địa chỉ"></i>@Model.Address</div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1"><span class="fa fa-user mr-1"></span> Loại:</label>
+                                        Khách lẻ
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1"><span class="fa fa-users mr-1"></span> Nhóm:</label>
+                                        <a  class="edit" title="Đổi nhóm khách hàng"><i class="fa fa-pen ml-2"></i></a>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1"><span class="fa fa-credit-card mr-1"></span> Mã thẻ:</label>
+                                        <a class="edit changeCode" title="Đổi mã thẻ khách hàng"><i class="fa fa-pen ml-2"></i></a>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1"><span class="fa fa-level-up mr-1"></span> Cấp độ:</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="boxCustomer" class="card">
+                        <div class="card-header bg-light header-elements-inline py-2">
+                            <h5 class="card-title font-weight-semibold">
+                                <i class="fa fa-history mr-1"></i> Lịch sử giao dịch
+                            </h5>
+                            
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+
+                                    <div class="mb-2"><label class="font-weight-semibold mr-1">Tổng số hóa đơn:</label> <span>@Model.totalOrder</span></div>
+                                    <div class="mb-2"><label class="font-weight-semibold mr-1">Tổng số ngày mua:</label> <span></span></div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1">Tổng sản phẩm đã mua:</label>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1">Điểm tích lũy:</label>
+                                        <span class="paid">0</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1">Tổng tiền tích lũy:</label>
+                                        <span class="paid"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1">Ngày bắt đầu mua hàng:</label>
+                                        <span>15/05/2021</span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1">Ngày mua cuối cùng:</label>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 p-4">
+                    <div id="boxInfo" class="card">
+                        <div class="card-header bg-light header-elements-inline py-2">
+                            <h5 class="card-title font-weight-semibold">
+                                <i class="fa fa-info-circle mr-1"></i> Thanh toán
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1"><span class="fa fa-building mr-1"></span> Công ty:</label>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="font-weight-semibold mr-1"><span class="fa fa-credit-card mr-1"></span> Mã số thuế:</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row container-fluid">
+                <div class="col-12 d-flex">
+                    <div class="col-2 text-right pr-3"><i class="fa fa-2x fa-lightbulb"></i><br></div>
+                    <div class="col-10">
+                        <p>CHÚ Ý:</p>
+                        <p>
+                            - Tổng tiền tích lũy = Tổng tiền khách đã mua - Tổng tiền khách đã
+                            trả lại hàng - Tổng tiền sử dụng điểm tích lũy.
+                        </p>
+                        <p>- Tổng số hóa đơn tính cả hóa đơn mua hàng và hóa đơn trả hàng.</p>
+                        <p>
+                            - Tổng sản phẩm đã mua = Tổng sản phẩm hóa đơn mua - Tổng sản phẩm
+                            hóa đơn trả.
+                        </p>
+                        <p>
+                            - Ngày bắt đầu mua và Ngày mua cuối cùng chỉ tính theo các hóa đơn
+                            mua hàng, không tính hóa đơn trả hàng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

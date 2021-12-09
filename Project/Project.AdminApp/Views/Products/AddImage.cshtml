@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Project.ViewModels.Products.ProductUpdateRequest
+@{
+    Layout = "_IframeLayout";
+}
+@section CSs{
+    <link href="/css/UploadFile.css" rel="stylesheet" />
+}
+<main>
+    <div class="container-fluid mt-4">
+        <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Tải ảnh lên</h2></div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item "><a asp-action="Detail" asp-controller="Products" asp-route-id="@ViewBag.ProductId"> Chi Tiểt Sản Phẩm </a></li>
+            <li class="breadcrumb-item active">Tải Ảnh Lên</li>
+        </ol>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-action="AddImages" asp-controller="Products" method="post" enctype="multipart/form-data" id="my_form">
+
+            <input asp-for="Id" value="@ViewBag.ProductId" class="form-control required" hidden />
+            <div class="container">
+                <div class="row it">
+                    <div class="col-sm-offset-1 col-sm-12" id="one">
+                        <p>
+                            Vui lòng upload các file có dạng  'pdf', 'docx', 'rtf', 'jpg', 'jpeg', 'png' & 'text' .
+                        </p><br>
+                        <div class="row">
+                            <div class="col-sm-offset-4 col-sm-4 form-group">
+                                <h3 class="text-center">Ảnh sản phẩm</h3>
+                            </div><!--form-group-->
+                        </div><!--row-->
+                        <div id="uploader">
+                            <div class="row uploadDoc">
+                                <div class="col-sm-3">
+                                    <div class="docErr">Vui Lòng Upload Các File Đúng Định Dạng</div><!--error-->
+                                    <div class="fileUpload btn btn-orange">
+                                        <img src="https://image.flaticon.com/icons/svg/136/136549.svg" class="icon">
+                                        <span class="upl" id="upload">Tải Ảnh Lên</span>
+                                        <input type="file" name="Images" class="upload up" id="up" onchange="readURL(this);" />
+
+                                    </div><!-- btn-orange -->
+                                </div><!-- col-3 -->
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="" placeholder="Note">
+                                </div><!--col-8-->
+                                <div class="col-sm-1"><a class="btn-check"><i class="fa fa-times"></i></a></div><!-- col-1 -->
+                            </div><!--row-->
+                        </div><!--uploader-->
+                        <div class="text-center">
+                            <a class="btn btn-new"><i class="fa fa-plus"></i> Thêm ảnh</a>
+                            <a class="btn btn-next" onclick="document.getElementById('my_form').submit();"><i class="fa fa-paper-plane"></i> Tải Lên</a>
+                        </div>
+                    </div><!--one-->
+                </div><!-- row -->
+            </div><!-- container -->
+        </form>
+    </div>
+</main>
+
+@section Scripts{
+    <script src="/js/myjs.js" type='text/javascript'></script>
+    <script src="/js/UploadFile.js"></script>
+    
+}

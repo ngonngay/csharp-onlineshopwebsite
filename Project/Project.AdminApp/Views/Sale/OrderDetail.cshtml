@@ -1,0 +1,560 @@
+﻿@model OrderViewModel
+@{
+    Layout = "_IframeLayout";
+}
+
+<main class="container-fluid mt-5">
+    
+    <div class="container-fluid d-inline-flex justify-content-center mb-3 "> <h2>Thông Tin Đơn Hàng</h2></div>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Khách Hàng : </li>
+    </ol>
+    <!-- Header + Breadcrumbs -->
+    <div class="page-header">
+        <!-- Header -->
+        <div class="page-header-content header-elements-md-inline">
+            <div class="header-elements">
+
+            </div>
+        </div>
+
+        <div class="row mt-2 mx-3">
+            <div class="col-12 col-md-10 p-0 mb-1">
+                <ul id="tabPageDetail" style="" class="nav nav-tabs nav-tabs-bottom m-0">
+                    <li class="nav-item">
+                        <a id="detail" class="nav-link  active" href="#">
+                            <i class="fa fa-info-circle mr-1"></i> Thông tin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="confirm" data-status="42" class="nav-link  " href="#">
+                            <i class="fa fa-check mr-1"></i> Xác nhận
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="pickup" class="nav-link  " href="">
+                            <i class="fa fa-inbox mr-1"></i> In &amp; đóng gói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="carrier" class="nav-link  " href="#">
+                            <i class="fa fa-truck mr-1"></i> Gửi vận chuyển
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-2 p-0 text-right">
+                <div class="btn-group  ml-1">
+                    <button class="dropdown-toggle btn btn-md  btn-primary" data-toggle="dropdown" aria-expanded="false">Thao tác</button>
+                    <div class="dropdown-menu dropdown-menu-right ">
+                    <a href="" class=" dropdown-item"><i class="fa fa-print mr-2"></i> In phiếu gửi Khổ A4 | A5</a>
+                    <a href="" class=" dropdown-item"><i class="fa  fa-print mr-2"></i> In phiếu gửi Khổ K80</a>
+                    <a href="" class=" dropdown-item"><i class="fa  fa-print mr-2"></i> In nhãn</a><div class="dropdown-divider"></div>
+                    <a href="" class="editOrder dropdown-item" data-storeid="90586" data-id="102159154" data-status="42"><i class="fa  fa-pencil mr-2"></i> Sửa đơn hàng</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="" class="changeDepotOrder dropdown-item" data-id="102159154" data-storeid="90586"><i class="fa  fa-exchange mr-2"></i> Đổi kho hàng</a>
+                    <a href="" class=" dropdown-item" data-id="102159154" data-storeid="90586" id="copyOrderBtn"><i class="fa  fa-copy mr-2"></i> Copy đơn hàng</a>
+                    <a href="" class=" dropdown-item" data-id="102159154" data-storeid="90586" id="btnResendEmail"><i class="fa  fa-envelope mr-2"></i> Gửi lại Email đơn hàng</a>
+                    <a href="" class=" dropdown-item"><i class="fa  fa-shopping-cart mr-2"></i> Trả lại (Tại quầy)</a><div class="dropdown-divider"></div>
+                    <a href="" class=" dropdown-item"><i class="fa  fa-shopping-bag mr-2"></i> Tạo hóa đơn bán lẻ</a>
+                    <a href="" class=" dropdown-item"><i class="fa  fa-bags-shopping mr-2"></i> Tạo hóa đơn bán buôn</a>
+                    <a href="" class=" dropdown-item"><i class="fa  fa-plane-departure mr-2"></i> Lịch trình gửi cho khách mua hàng</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="detailOrder" class="pageDetail mt-5">
+        <div class="content">
+            <input type="hidden" name="orderId" id="orderId" value="102159154">
+            <input type="hidden" name="storeId" id="storeId" value="90586">
+            <input type="hidden" id="customerMobile" value="0978218436">
+            <div class="row" data-carrierpaymentstatus="99" data-storepaymentstatus="99" data-shippingdiscountstatus="99" data-routetypeid="" data-sendcarrierdate="" data-sendcarriertype="1" data-overweightshipfee="" data-postpurchasemessage="">
+                <div class="col-12 col-lg-8">
+                    <!-- Thông tin khách hàng -->
+                    <div id="boxCustomer" class="card">
+                        <div class="card-header py-2 bg-light header-elements-inline">
+                            <div class="card-title col-6 pl-0 d-flex align-items-center flex-md-nowrap flex-wrap">
+                                <h5 class="font-weight-semibold mr-2 mb-0">
+                                    <i class="fa fa-user mr-2"></i> Khách hàng
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="card-body pb-1">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div>
+                                        <label class="mr-1"><span class="fa fa-user"></span></label>
+                                        @Model.ShipName
+                                    </div>
+                                    <div>
+                                        <label class="mr-1"><span class="fa fa-phone-alt"></span></label>
+                                        @Model.ShipPhoneNumber
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div>
+                                        <label class="mr-1 mb-0"><span class="fa fa-home"></span></label>
+                                        @Model.ShipAddress
+                                    </div>
+                                    <div>
+                                        <label class="mr-1 mb-0"><span class="fa fa-map-marker"></span></label>
+                                        @String.Join(",", Model.Districst, Model.City)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row col-12">
+                                <p>
+                                    <b>Ghi chú:</b> @Model.CustomerNote
+                                </p>
+                            </div>
+                            <div class="row col-12">
+                                <p>
+                                    <b>Ghi chú của CSKH:</b> @Model.StaffNote
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div id="boxProducts" class="card mt-5">
+                        <table class="table table-tiny table-bordered" data-hasblockrows="1">
+                            <thead>
+                                <tr>
+                                    <th class="text-left"><h5 class="font-weight-semibold m-0"><i class="fa fa-cube mr-2"></i> Sản phẩm</h5></th>
+                                    <th class="text-right" title="Khối lượng"><i class="fa fa-balance-scale"></i></th>
+                                    <th class="text-right" title="Số lượng">SL</th>
+                                    <th class="text-right">Giá</th>
+                                    <th class="text-right">Tổng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ordertItem)
+                                {
+                                    <tr>
+                                        <td class="">
+                                            <a asp-controller="Products" asp-action="Detail" asp-route-id="@item.ProductId">
+                                                @String.Join(" - ", item.Name,item.Size)
+                                            </a>
+                                        </td>
+                                        <td class="text-right">300</td>
+                                        <td class="text-right">@item.Quantity<br>(<span title="Đơn vị tính">Chiếc</span>)</td>
+                                        <td class="text-right" data-vat="" data-vatmoney="0">
+                                            @String.Format("{0:0,0 vnđ}", @item.Price)
+                                            <p title="Chiết khấu sản phẩm" class="text-warning font-size-sm mb-0">- 0.000</p>
+                                        </td>
+                                        <td class="text-right">@String.Format("{0:0,0 vnđ}", @item.total)</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Vận chuyển -->
+                    <div id="boxCarrier" class="card mt-5">
+                        <div class="card-header py-2 bg-light header-elements-inline">
+                            <h5 class="card-title font-weight-semibold" style="color: ">
+                                <i class="fa fa-truck mr-2"></i> Tự Vận Chuyển
+                            </h5>
+                            <div class="header-elements text-right">
+                                <span class="mr-0 mr-md-3"><i class="fa fa-eye mr-1"></i> Không cho xem hàng</span>
+                                <span title="" data-toggle="tooltip" data-original-title="Ngày nhận"><i class="fa fa-calendar mr-1"></i> <a target="_blank" href="#">02/06</a></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-md-6 p-0">
+                                    <table class="table table-borderless table-tiny" data-hasblockrows="1">
+                                        <tbody>
+                                            <!-- Dịch vụ khi tự kết nối vận chuyển -->
+                                            <tr>
+                                                <td class="">Mua bảo hiểm :</td>
+                                                <td class="">Không</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-6 p-0">
+                                    <table class="table table-borderless table-xs" data-hasblockrows="1">
+                                        <tbody>
+                                            <tr>
+                                                <td>Trọng lượng :</td>
+                                                <td class="text-right">
+                                                    300 gr
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*chuyển trạng thái*@
+                <div id="boxCarrier" class="card mt-5">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+                        <div id="boxInfoOthers" class="card">
+                            <div class="card-header bg-light py-2 header-elements-inline d-xl-none">
+                                <h5 class="card-title font-weight-semibold">
+                                    <i class="fa fa-info-circle mr-1"></i> Thông tin
+                                </h5>
+                            </div>
+                            <div class="card-body pb-1">
+                                <div class="row mb-2">
+                                    <div class="input-group col-12">
+                                        <select name="type" class="form-control" id="type">
+                                            <option value="">- Loại đơn -</option>
+                                            <option value="1">Chuyển hàng</option>
+                                            <option value="2">Mua tại quầy</option>
+                                            <option value="3" selected="selected">Đặt trước</option>
+                                            <option value="5">Đổi quà</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="wrapShippingType" class="row mb-2">
+                                    <div class="input-group col-12">
+                                        <select name="shippingType" class="form-control" id="shippingType">
+                                            <option value="">- Loại chuyển hàng -</option>
+                                            <option value="1" selected="selected">[G] Chuyển hàng tận nhà</option>
+                                            <option value="2">[Đ] Đổi sản phẩm</option>
+                                            <option value="4">[T] Khách trả lại hàng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="input-group col-12">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" title="Nhân viên bán hàng">
+                                                <i class="fa fa-id-card"></i>
+                                            </span>
+                                        </div>
+                                        <input type="hidden" name="saleId" id="saleId" value="2630525">
+                                        <input type="text" name="saleName" class="form-control" autocomplete="off" placeholder="Nhân viên bán hàng" id="saleName" value="Ca Chiều Offline">
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="input-group col-12">
+                                        @if (Model.Status == OrderStatus.Canceled || Model.Status == OrderStatus.Success)
+                                        {
+                                            <select name="status" id="status" class="form-control">
+                                                <option value="">@Model.Status.DisplayName()</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <select name="status" id="status" asp-items="@ViewBag.Status" class="form-control">
+                                                <option value="-1">- Trạng thái xác nhận -</option>
+                                            </select>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="row mb-2" id="wrapReason" style="display:none;">
+                                    <div class="input-group col-12">
+                                        <select name="reason" id="reason" class="form-control">
+                                            <option value="null" selected>- Chọn lý do -</option>
+                                            <option value="Đặt nhầm sản phẩm">Đặt nhầm sản phẩm</option>
+                                            <option value="Phí vận chuyển cao">Phí vận chuyển cao</option>
+                                            <option value="Không muốn chuyển khoản">Không muốn chuyển khoản</option>
+                                            <option value="Đơn trùng">Đơn trùng</option>
+                                            <option value="Không gọi được khách">Không gọi được khách</option>
+                                            <option value="Hết hàng">Hết hàng</option>
+                                            <option value="Chờ chuyển khoản">Chờ chuyển khoản</option>
+                                            <option value="Khách hàng không thích sản phẩm">Khách hàng không thích sản phẩm</option>
+                                            <option value="Khách hàng không hài lòng về NVVC">Khách hàng không hài lòng về NVVC</option>
+                                            <option value="Thời gian giao hàng lâu">Thời gian giao hàng lâu</option>
+                                            <option value="Đã mua tại quầy">Đã mua tại quầy</option>
+                                            <option value="Sai địa chỉ giao hàng">Sai địa chỉ giao hàng</option>
+                                            <option value="Khách không mua nữa">Khách không mua nữa</option>
+                                            <option value="Bưu tá làm mất hàng">Bưu tá làm mất hàng</option>
+                                            <option value="Không liên hệ được với gian hàng">Không liên hệ được với gian hàng</option>
+                                            <option value="Gian hàng không bán hàng online/bán lẻ/ngoại tỉnh">Gian hàng không bán hàng online/bán lẻ/ngoại tỉnh</option>
+                                            <option value="Gian hàng không bàn giao hàng cho HVC">Gian hàng không bàn giao hàng cho HVC</option>
+                                            <option value="HVC đến lấy hàng muộn">HVC đến lấy hàng muộn</option>
+                                            <option value="Sai địa chỉ kho lấy hàng">Sai địa chỉ kho lấy hàng</option>
+                                            <option value="Tự vận chuyển">Tự vận chuyển</option>
+                                            <option value="Kho đóng sai/ thiếu hàng">Kho đóng sai/ thiếu hàng</option>
+                                            <option value="Lý do khác">Lý do khác</option>
+                                            <option value="Hủy do gian hàng không xử lý đơn hàng sau 48h">Hủy do gian hàng không xử lý đơn hàng sau 48h</option>
+                                            <option value="Sai giá">Sai giá</option>
+                                            <option value="Khách suy nghĩ thêm">Khách suy nghĩ thêm</option>
+                                            <option value="Chờ cửa hàng xác nhận">Chờ cửa hàng xác nhận</option>
+                                            <option value="Không hỗ trợ COD">Không hỗ trợ COD</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="input-group col-12">
+                                        <select name="continue" id="continue" class="form-control">
+                                            <option value="">- Sau khi lưu dữ liệu -</option>
+                                            <option value="aboutAdd">Tiếp tục thêm đơn hàng</option>
+                                            <option value="aboutIndex">Về danh sách đơn hàng</option>
+                                            <option value="aboutDetail" selected="selected">Xem chi tiết đơn hàng</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="input-group col-6 pr-0">
+                                        <div id="labelCollectingRecipient" class="mb-0 mr-1">Thu khách:</div>
+                                        <div id="collectingRecipient" class="font-weight-semibold" style="color: green;">@String.Format("{0:0,0 vnđ}", Model.total)</div>
+                                    </div>
+                                    <div class="input-group col-6 pl-1 pr-0">
+                                        <div id="labelPaySender" class="mb-0 mr-1">Thu shop:</div>
+                                        <div id="paySender" class="font-weight-semibold" style="color: green;">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.Status == OrderStatus.Canceled || Model.Status == OrderStatus.Success)
+                    {
+
+                    }
+                    else
+                    {
+                        <span class="btn btn-success btnSave mr-3 mt-3 ml-3" id="saveOrder" data-id="@Model.OrderId" style="cursor: pointer;">
+                            <i class="fa fa-save mr-1"></i>(F9) Lưu
+                        </span>
+                    }
+
+                </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="row">
+                        <!-- Thanh toán -->
+                        <div class="col-md-6 col-lg-12">
+                            <div id="boxPayment" class="card">
+                                <div class="card-header py-2 bg-light header-elements-inline">
+                                    <h5 class="card-title font-weight-semibold">
+                                        <i class="fa fa-money-bill-alt mr-2"></i> Thanh toán
+                                    </h5>
+                                </div>
+                                <table class="table table-borderless table-xs mt-1 mb-1 justify-content-start d-flex" data-hasblockrows="1">
+                                    <tbody>
+                                        <tr>
+                                            <td>Phí ship báo khách</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chiết khấu</td>
+                                            <td class="text-right text-warning">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chuyển khoản</td>
+                                            <td class="text-right">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tài khoản ngân hàng</td>
+                                            <td class="text-right"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-weight-semibold">Thu người nhận</td>
+                                            <td class="text-right font-weight-semibold text-success font-size-lg"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trả người gửi</td>
+                                            <td class="text-right"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Thông tin khác -->
+                        <div class="col-md-6 col-lg-12 mt-5">
+                            <div id="boxInfoOthers" class="card">
+                                <div class="card-header py-2 bg-light header-elements-inline">
+                                    <h5 class="card-title font-weight-semibold"><i class="fa fa-info-circle mr-2"></i> Thông tin</h5>
+                                    <div class="header-elements">
+                                        <span title="Số thứ tự đơn theo từng ngày">STT: <span class="font-weight-semibold">7</span></span>
+                                    </div>
+                                </div>
+                                <table class="table table-responsive" data-hasblockrows="1" style="overflow:hidden;">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2" style=" max-width: 100px;overflow:hidden;">
+                                                <p><i class="fa fa-home mr-1" title="Kho hàng"></i> <a href="/order/manage?storeId=90586&amp;depotId=90354&amp;showDataIframe=1" class="font-weight-semibold text-success">TARTARUS</a></p>
+                                                <div style="overflow:hidden;overflow-wrap:break-word;"><i class="fa fa-map-marker-alt mr-1" title="Địa chỉ kho hàng"></i>@String.Join(",", Model.ShipAddress, Model.Districst, Model.City)</div>
+                                                <p class="mb-0"><i class="fa fa-phone-alt mr-1" title="Điện thoại kho hàng"></i> 0986216666</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Loại đơn</td>
+                                            <td>
+                                                Chuyển hàng<i class="ml-2 fa fa-truck" title="Kết nối qua Nhanh"></i><br>
+                                                <span class="font-size-sm">[G] Chuyển hàng tận nhà</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td title="Nhân viên bán hàng">NVBH</td>
+                                            <td>
+                                                Online Ca Sáng
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Người tạo</td>
+                                            <td><a href="/order/manage/index?storeId=90586&amp;createdById=2630495">Online Ca Sáng</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày tạo</td>
+                                            <td><p class="p-0 m-0" title="">@Model.OrderDate</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Lịch trình -->
+                        <div class="col-12 mt-5">
+                            <div id="boxHistories" class="card">
+                                <div class="card-header py-2 bg-light header-elements-inline">
+                                    <h5 class="card-title font-weight-semibold"><i class="fa fa-history mr-2"></i> Lịch sử</h5>
+                                </div>
+                                <table class="table table-tiny" data-hasblockrows="1">
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*dialog show history update*@
+    <div class="modal fade" id="dialogShowContent">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-light py-2">
+                    <h5 class="modal-title">Chi tiết log</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="text-right">
+                        <button class="showLogHistoryToggle showDetailLogHistory btn btn-success">Xem chi tiết</button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="wrapTableLog" class="table-responsive mt-3"></div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    @*alertModel*@
+    <div class="modal fade" id="alertModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-light py-2">
+                    <h5 class="modal-title">Thông báo!</h5>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-light reload" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Dialog thông báo hủy đơn hàng -->
+    <div id="cancelCarrierModal" class="modal fade" style="z-index: 9999">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-light py-2">
+                    <h5 class="modal-title">Báo hủy đơn hàng</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="msgAlertCancelCarrier"></div>
+                    <input type="hidden" id="orderIdCancelCarrier">
+                    <div class="form-horizontal">
+                        <p class="m-0">Bạn có chắc chắn muốn báo hủy đơn hàng này ?</p>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-success" id="btnCancelCarrier">Báo hủy</button>
+                    <button type="button" class="btn btn-light reload" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog đổi trạng thái -->
+    <div id="changeStatusModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-light py-2">
+                    <h5 class="modal-title">Đổi trạng thái</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="msgAlertChangeStatus"></div>
+                    <input type="hidden" id="orderIdChangeStatus">
+                    <input type="hidden" id="carrierIdChangeStatus">
+                    <input type="hidden" id="useAccountingChangeStatus">
+                    <div class="form-horizontal">
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <select id="nextToStatus" data-storeid="90586" data-depotid="90354" class="form-control">
+                                    <option value="">- Trạng thái -</option>
+                                    <option value="54">Mới</option>
+                                    <option value="57">Chờ xác nhận</option>
+                                    <option value="55">Đang xác nhận</option>
+                                    <option value="56">Đã xác nhận</option>
+                                    <option value="68">Hết hàng</option>
+                                    <option value="73">Đổi kho hàng</option>
+                                    <option value="42">Đang đóng gói</option>
+                                    <option value="40">Đã đóng gói</option>
+                                    <option value="43">Chờ thu gom</option>
+                                    <option value="59">Đang chuyển</option>
+                                    <option value="61">Thất bại</option>
+                                    <option value="63">Khách hủy</option>
+                                    <option value="64">Hệ thống hủy</option>
+                                    <option value="58">HVC hủy</option>
+                                    <option value="71">Đang hoàn</option>
+                                    <option value="72">Đã hoàn</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group row" id="wrapNextToDate" style="display:none;">
+                            <div class="col-6">
+                                <input type="text" id="nextToDate" placeholder="Ngày giao thành công" value="05/06/2021" class="form-control tbDatePicker" style="width: 100%;">
+                            </div>
+                            <div class="col-6">
+                                <select id="accountingAccountId" class="form-control" style="display: none;">
+                                    <option value="">- Tài khoản nhận tiền -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-success" id="btnSaveChangeStatus">Đổi trạng thái</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+@section Scripts{
+    <script src="/js/OrderDetail.js"></script>
+    <script>
+        
+        var OrderDetailController = new OrderDetailController();
+        OrderDetailController.initialize();
+    </script>
+  }

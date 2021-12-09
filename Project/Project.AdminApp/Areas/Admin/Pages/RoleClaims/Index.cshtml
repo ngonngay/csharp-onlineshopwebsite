@@ -1,0 +1,62 @@
+﻿@page
+@model Project.Areas.Admin.Pages.RoleClaims.IndexModel
+
+@{
+    ViewData["Title"] = "Claim cho:" + Model.role.Name;
+}
+
+
+<main>
+    <div class="container-fluid mt-4">
+        <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Quyền Hạn: @Model.role.Name</h2></div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dòng này chưa có ý tưởng ^^</li>
+        </ol>
+        <div class="card mb-4 mt-2">
+            <div class="card-header">
+                <i class="fa fa-list mr-1"></i>
+                Table Tittle
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0" style="background-color:white;color:black">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.claims[0].ClaimType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.claims[0].ClaimValue)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.claims)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClaimType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClaimValue)
+                                    </td>
+                                    <td>
+                                        <a asp-page="./Edit" asp-route-roleid="@Model.role.Id" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-page="./Delete" asp-route-roleid="@Model.role.Id" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a asp-area="Admin" asp-page="/Role/Index">Danh sách ROLES</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

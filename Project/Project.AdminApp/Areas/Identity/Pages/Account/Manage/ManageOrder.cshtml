@@ -1,0 +1,132 @@
+﻿@page "/ManageOrder"
+@model Project.AdminApp.Areas.Identity.Pages.Account.Manage.ManageOrderModel
+@{
+    ViewData["Title"] = "Đơn Hàng Của Bạn";
+    ViewData["ActivePage"] = ManageNavPages.Order;
+}
+@*@section HtmlTitle{
+        <h4 class="container-fluid d-inline-flex justify-content-center mb-3">Đơn hàng của bạn</h4>
+        <hr />
+    }*@
+@section Css{
+    <link href="/Client/css/Identity/Manage/manageOrder.css" rel="stylesheet" />
+ }
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="Account__StyledAccountLayoutInner-sc-1d5h8iz-2 edAZXd">
+    <div class="styles__StyledAccountListOrder-sc-6t66uv-0 glOjBk">
+        <div class="heading">Đơn hàng của tôi</div>
+        @foreach (var item in Model.Orders)
+        {
+            if (item.ordertItem.Count() > 0)
+            {
+                @if (item.Status != OrderStatus.Success && item.Status != OrderStatus.Canceled)
+                {
+                    <div class="styles__StyledInprogressOrder-sc-6t66uv-1 dftOUR border-bottom mb-1">
+                        <div class="order-header order-header-mo " style="display:flex;">
+                            <div class="item-mo">
+                                <div class="title">Mã đơn hàng</div>
+                                <div class="value">
+                                    <a asp-page="./OrderDetail" asp-route-id="@item.OrderId">@item.OrderId</a>
+                                </div>
+                            </div><div class="item-mo">
+                                <div class="title">Ngày mua</div>
+                                <div class="value">@item.OrderDate</div>
+                            </div>
+                            <div class="item-mo">
+                                <div class="title">Tổng tiền</div>
+                                <div class="value">@String.Format("{0:0,0 đ}", item.total)</div>
+                            </div>
+                        </div>
+                        <div class="order-info">
+                            <h3>Giao trước 10:00 ngày mai</h3>
+                            @{
+                                string process = item.Status == OrderStatus.New ? "10%" : item.Status == OrderStatus.Confirmed ? "35%" : item.Status == OrderStatus.InProgress ? "50%" : "70%";
+                                string processStatus = item.Status == OrderStatus.New ? "Đơn Hàng Đã Được Tạo" : item.Status == OrderStatus.Confirmed ? "Đơn Hàng Đã Được Xác Nhận" : item.Status == OrderStatus.InProgress ? "Đơn Hàng Đang Được Đóng Gói" : "Đơn Hàng Đang Được Vận Chuyển";
+
+                            }
+                            <div class="progress-bar"><div class="current" style="width:@process"></div></div><p class="progress-status">@processStatus</p>
+                            @foreach (var p in item.ordertItem)
+                            {
+                                <div class="product">
+                                    <img class="image" src="@p.Image">
+                                    <div class="info">
+                                        <a class="name">@String.Join(" - ", p.Name, p.Size)</a>
+                                        <div class="seller">Bán và giao bởi <span>eShops</span></div><div class="price">@String.Format("{0:0,0 đ}", p.Price)</div><div class="qty">Số lượng: @p.Quantity</div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="order-control">
+                            <div class="button-group">
+                                <div class="OrderDetail id" data-id="@item.OrderId"><a asp-page="./OrderDetail" asp-route-id="@item.OrderId">Xem chi tiết đơn hàng</a> </div>
+                                <div class="view-tracking cancle-order" data-status="@item.Status">Hủy Đơn Hàng</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+        <div class="inner">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Ngày mua</th>
+                        <th>Sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái đơn hàng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Orders)
+                    {
+                        if (item.ordertItem.Count() > 0 && (item.Status == OrderStatus.Canceled || item.Status == OrderStatus.Success))
+                        {
+                            <tr>
+                                <td>
+                                    <a href="">@item.OrderId</a>
+                                </td>
+                                <td>@item.OrderDate</td>
+                                @if (item.ordertItem.Count() > 1)
+                                {
+                                    <td>@String.Join(" - ", item.ordertItem[0].Name, item.ordertItem[0].Size) và @(item.ordertItem.Count()-1) sản phẩm khác </td>
+                                }
+                                else
+                                {
+                                    <td>@item.ordertItem[0].Name</td>
+                                }
+                                <td>@String.Format("{0:0,0 đ}", @item.total)</td>
+                                <td>@item.Status.DisplayName()</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/Client/js/ManageOrder.js"></script>
+    <script>
+
+        var ManageOrderController = new ManageOrderController();
+        ManageOrderController.initialize();
+    </script>
+}
+@{ Func<int?, string> generateUrl = (int? _pagenumber) =>
+                             {
+                                 return Url.Page("./ManageOrder", new { pageNumber = _pagenumber });
+                             };
+
+    var datapaging = new
+    {
+        currentPage = Model.pageNumber,
+        countPages = Model.totalPages,
+        generateUrl = generateUrl
+    }; }
+<partial name="_Paging" model="@datapaging" />

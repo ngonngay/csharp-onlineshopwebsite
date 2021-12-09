@@ -1,0 +1,215 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ProductsPageViewModel
+@{
+    var parms = new Dictionary<string, string>
+    {
+               
+                { "keyword",ViewBag.keyword },
+                { "StartPrice",ViewBag.StartPrice },
+                { "EndPrice",ViewBag.EndPrice },
+                { "categoryId",ViewBag.categoryId }
+    };
+    var parmsPrice = new Dictionary<string, string>
+    {
+               
+                { "keyword",ViewBag.keyword },
+                { "categoryId",ViewBag.categoryId }
+    };
+}
+
+
+<div class="product-view">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-view-top">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="product-search">
+                                        <form asp-controller="HomePage" asp-action="ListProduct" method="get">
+                                            <input name="keyword" type="text" placeholder="Tìm kiếm sản phẩm">
+                                            <button type="submit"><i class="fa fa-search"></i></button>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="product-short">
+                                        <div class="dropdown">
+                                            <div class="dropdown-toggle" data-toggle="dropdown">Sắp Xếp Theo</div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a asp-action="ListProduct" asp-controller="HomePage" asp-all-route-data="parms" asp-route-listType="New" class="dropdown-item">Mới Nhất</a>
+                                                <a asp-action="ListProduct" asp-controller="HomePage" asp-all-route-data="parms" asp-route-listType="View" class="dropdown-item">Phổ Biến Nhất</a>
+                                                <a asp-action="ListProduct" asp-controller="HomePage" asp-all-route-data="parms" asp-route-listType="bestSale" class="dropdown-item">Bán Chạy Nhất</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="product-price-range">
+                                        <div class="dropdown">
+                                            <div class="dropdown-toggle" data-toggle="dropdown">Lọc Theo Khoảng Giá</div>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a asp-action="ListProduct" asp-controller="HomePage"asp-all-route-data="parmsPrice"  asp-route-StartPrice="0" asp-route-EndPrice="50000" class="dropdown-item">0 đến 50.000 vnđ</a>
+                                                <a asp-action="ListProduct" asp-controller="HomePage"asp-all-route-data="parmsPrice"  asp-route-StartPrice="50000" asp-route-EndPrice="100000" class="dropdown-item">50.000 đến 100.000 vnđ</a>
+                                                <a asp-action="ListProduct" asp-controller="HomePage"asp-all-route-data="parmsPrice"  asp-route-StartPrice="100000" asp-route-EndPrice="" class="dropdown-item">Trên 100.000 vnđ</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @foreach (var item in Model.products.Items)
+                    {
+                        <div class="col-md-4">
+                            <div class="product-item">
+                                <div class="product-title">
+                                    <a asp-action="ProductDetail" asp-controller="HomePage" asp-route-id="@item.Id">@item.Name</a>
+                                    <div class="ratting">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="product-image">
+                                    <a asp-action="ProductDetail" asp-controller="HomePage" asp-route-id="@item.Id">
+                                        <img src="@item.ThumbnailImage" alt="Product Image" style="max-width:288px;max-height:288px;object-fit:cover">
+                                    </a>
+                                    <div class="product-action">
+                                        <a data-id="@item.Id" class="icon-add-cart" title="Thêm vào giỏ hàng"><i class="fa fa-cart-plus"></i></a>
+                                        <a asp-action="ProductDetail" asp-controller="HomePage" asp-route-id="@item.Id" title="Xem chi tiết"><i class="fa fa-info-circle"></i></a>
+                                        
+                                    </div>
+                                </div>
+                                <div class="product-price">
+                                    <h3>@item.price</h3>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+
+                <!-- Pagination Start -->
+                <div class="col-md-12">
+
+                    <nav aria-label="Page navigation example">
+                        @await Component.InvokeAsync("ClientPager", Model.products)
+                    </nav>
+                </div>
+                <!-- Pagination Start -->
+            </div>
+
+            <!-- Side Bar Start -->
+            <div class="col-lg-4 sidebar">
+                <div class="sidebar-widget category">
+                    <h2 class="title">Danh mục</h2>
+                    <nav class="navbar bg-light">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/"><i class="fa fa-home"></i>Trang Chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-listType="bestSale"><i class="fa fa-shopping-bag"></i>Sản phẩm bán chạy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-listType="View"><i class=" fa far fa-star"></i>Sản Phẩm Xem Nhiều</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-listType="New"><i class="fa fa-plus-square"></i>Sản phẩm mới</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-categoryId="-2"><i class="fa fa-female"></i>Váy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-categoryId="-3"><i class="fas fa fa-male"></i>Street Style</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-categoryId="-4"><i class="fa fa-tshirt"></i>T-Shirt</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="HomePage" asp-action="ListProduct" asp-route-categoryId="-1"><i class="fa fa-mobile-alt"></i>Jean</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="sidebar-widget widget-slider">
+                    <div class="sidebar-slider normal-slider">
+                        @foreach (var item in Model.FeaturedProducts)
+                        {
+                            <div class="col-md-4">
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a asp-action="ProductDetail" asp-controller="HomePage" asp-route-id="@item.Id">@item.Name</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a asp-action="ProductDetail" asp-controller="HomePage" asp-route-id="@item.Id">
+                                            <img src="@item.ThumbnailImage" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a class="icon-add-cart"data-id="@item.Id"  title="Thêm vào giỏ hàng"><i class="fa fa-cart-plus"></i></a>
+                                            <a asp-action="ProductDetail" asp-controller="HomePage" asp-route-id="@item.Id" title="Xem chi tiết"><i class="fa fa-info-circle"></i></a>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3>@item.price</h3>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="sidebar-widget brands">
+                    <h2 class="title">Thương hiệu hợp tác:</h2>
+                    <ul>
+                        <li><a href="#">Tartarus </a><span>(45)</span></li>
+                        <li><a href="#">Tartarus </a><span>(34)</span></li>
+                        <li><a href="#">Tartarus </a><span>(67)</span></li>
+                        <li><a href="#">Tartarus</a><span>(74)</span></li>
+                        <li><a href="#">Tartarus </a><span>(89)</span></li>
+                        <li><a href="#">Tartarus</a><span>(28)</span></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget tag">
+                    <h2 class="title">Tags</h2>
+                    <a href="#">Lorem ipsum</a>
+                    <a href="#">Vivamus</a>
+                    <a href="#">Phasellus</a>
+                    <a href="#">pulvinar</a>
+                    <a href="#">Curabitur</a>
+                    <a href="#">Fusce</a>
+                    <a href="#">Sem quis</a>
+                    <a href="#">Mollis metus</a>
+                    <a href="#">Sit amet</a>
+                    <a href="#">Vel posuere</a>
+                    <a href="#">orci luctus</a>
+                    <a href="#">Nam lorem</a>
+                </div>
+            </div>
+            <!-- Side Bar End -->
+        </div>
+    </div>
+</div>

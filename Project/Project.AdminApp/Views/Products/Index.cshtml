@@ -1,0 +1,83 @@
+﻿@model PageResult<ProductViewModel>
+
+<main>
+    <div class="container-fluid" style="background:white">
+        <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Danh Sách Sản Phẩm</h2></div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+
+        </ol>
+        <partial name="_StatusMessage" model="@TempData["result"]" />
+        <form asp-action="index" asp-controller="Products" method="get">
+
+            <div class="row container d-inline-flex justify-content-around mb-4 ">
+                <a class="btn btn-success mr-5  mb-2" asp-action="Create" asp-controller="Products">Tạo mới</a>
+                <input id="id-target" name="id" placeholder="Mã sản phẩm" value=@ViewBag.id class="mr-3 col-12 col-md-3 col-lg-2 col-sm-12 mb-2" type="number">
+                <input id="product-name-target" name="keyword" placeholder="Tên sản phẩm" value=@ViewBag.keyword class="mr-3 col-12 col-md-3 col-lg-2 mb-2">
+                <div class="form-group mb-2 mr-3 col-12 col-md-4 col-lg-3 d-inline-flex justify-content-center">
+                    <label for="categoryTarget" style="min-width:100px;padding:6px 12px" class="mb-0">Danh mục</label>
+                    <select name="categoryId" asp-items="@ViewBag.Categories" class="form-control" style="align-items:center">
+                        <option value="0">Tất Cả</option>
+                    </select>
+                </div>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <button type="submit" class="btn btn-danger  mb-2">Lọc</button>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Đã Bán</th>
+                    <th scope="col">Tồn</th>
+                    <th scope="col">Lượt Xem</th>
+                    <th scope="col">Trạng Thái</th>
+                    <th scope="col">Sản Phẩm Nổi Bật</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                <tr>
+
+                    <td>
+                        @Html.ActionLink(item.Name, "Detail", new { id = item.Id }, new { @class = "openIframeDetail" })
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sold)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ViewCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.productStatus)
+                    </td>
+                    <td>
+                        @(item.IsFeatured?"Có":"Không")
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row container d-inline-flex justify-content-end mb-4">
+            @await Component.InvokeAsync("Pager", Model)
+        </div>
+    </div>
+</main>
+
+
+</div>
+@section Scripts{
+    <script type='text/javascript' src='/js/jquery.simplemodal.js'></script>
+    <script type='text/javascript' src='/js/basic.js'></script>
+    
+
+}
+@section Css{
+    <link type='text/css' href='/css/basic.css' rel='stylesheet' media='screen' />
+}

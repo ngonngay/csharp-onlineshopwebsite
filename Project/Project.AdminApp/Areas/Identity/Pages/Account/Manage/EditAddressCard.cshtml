@@ -1,0 +1,66 @@
+﻿@page "/customer/address/edit/{AddressCardId}"
+@model Project.AdminApp.Areas.Identity.Pages.Account.Manage.EditAddressModel
+@{
+    ViewData["Title"] = "HỒ SƠ";
+    ViewData["ActivePage"] = ManageNavPages.Address;
+}
+<h4 class="ml-5 mb-3">Cập Nhật Địa Chỉ Của Bạn</h4>
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" value="@Model.addressCardViewModel.phoneNumber"/>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FullName"></label>
+                <input asp-for="Input.FullName" class="form-control"value="@Model.addressCardViewModel.FullName" />
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div>
+                <span asp-validation-for="cityId" class="text-danger"></span>
+                <select class="form-select form-select-sm mb-3 custom-select" id="city" aria-label=".form-select-sm" asp-for="cityId" required>
+                    <option value="@Model.addressCardViewModel.CityId" selected>@Model.addressCardViewModel.City</option>
+                </select>
+            </div>
+
+            <div>
+                <span asp-validation-for="districtId" class="text-danger"></span>
+                <select class="form-select form-select-sm mb-3 custom-select" id="district" aria-label=".form-select-sm" asp-for="districtId" required>
+                    <option value="@Model.addressCardViewModel.DistricstId" selected>@Model.addressCardViewModel.Districst</option>
+                </select>
+            </div>
+
+            <div>
+                <span asp-validation-for="wardId" class="text-danger"></span>
+                <select class="form-select form-select-sm mb-3 custom-select" id="ward" aria-label=".form-select-sm" asp-for="wardId" required>
+                    <option value="@Model.addressCardViewModel.WardsId" selected>@Model.addressCardViewModel.Ward</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Address"></label>
+                <input asp-for="Input.Address" class="form-control" value="@Model.addressCardViewModel.address" />
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+            <div>
+                <label class="Checkbox__StyledCheckbox-sc-75m08j-0 gkoeQY">
+                    <input class="" type="checkbox" asp-for="@Model.isDefault"><span class="checkbox-fake mr-2"></span><span class=" label">Đặt làm địa chỉ mặc định</span>
+                </label>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-danger">Lưu hồ sơ</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Client/js/render.js"></script>
+    <script>
+        var render = new RenderController();
+        render.initialize();
+    </script>
+}

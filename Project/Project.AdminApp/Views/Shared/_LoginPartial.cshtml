@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Project.Data.Entities
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="navbar-nav ml-auto">
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="is-signed-in" data-signed-in="true"><i class="fa fa-user" style="color: white;"></i> @UserManager.GetUserName(User) <span id="news"></span></a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a id="manage" class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Hồ Sơ của bạn"> Tài khoản của tôi <span id="news"></span></a>
+                <a id="manage" class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Notification" title="Hồ Sơ của bạn"> Thông báo của tôi <span class="news"></span></a>
+                <a id="manage" class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Manage/ManageOrder" title="Hồ Sơ của bạn"> Đơn hàng của tôi</a>
+                <a id="manage" class="nav-link text-dark dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "HomePage", new { area = "" })" title="Manage"> Đăng Xuất</a>
+                
+            </div>
+        </div>
+    </div>
+    
+}
+else
+{
+    <div class="navbar-nav ml-auto">
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"  id="is-signed-in" data-signed="false"><i class="fa fa-user" style="color: white;"></i>Tài Khoản</a>
+            <div class="dropdown-menu">
+                <a class="nav-link text-dark dropdown-item" id="register" asp-area="Identity" asp-page="/Account/Register">Đăng Kí</a>
+                <a class="nav-link text-dark dropdown-item" id="login" asp-area="Identity" asp-page="/Account/Login">Đăng Nhập</a>
+            </div>
+        </div>
+    </div>
+    
+}
+

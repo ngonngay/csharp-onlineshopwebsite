@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<AddressCardViewModel>
+    <main style="background: none;">
+        <div class="container-fluid" style="width: 1170px;">
+            <h3 class="title"><a href="/Cart"> 1. Giỏ hàng</a></h3>
+            
+            <h3 class="title">2. Địa chỉ giao hàng</h3>
+            <h5 class="address-list-text">Chọn địa chỉ giao hàng có sẵn bên dưới:</h5>
+            <partial name="_StatusMessage" model="@TempData["result"]" />
+            <div class="address-list">
+                @foreach (var item in Model)
+                {
+
+                    <div class="styles__StyledAddressItem-y17c35-0 hheNUT">
+                        <p class="name"> @item.FullName</p>
+                        <p class="address" title="">Địa chỉ: @item.addressCDW</p>
+                        <p class="phone">Điện thoại: @item.phoneNumber</p>
+                        <p class="action"><a type="button" class="btn saving-address" asp-controller="Cart" asp-action="SetActiveAddressCard" asp-route-AddressCardId="@item.AddressCardId">Giao đến địa chỉ này</a><button type="button" class="btn edit-address ml-5"> Sửa</button></p>
+                        @if (item.status == 0)
+                        {
+                            <span class="default">Mặc định</span>
+                        }
+
+                    </div>
+                }
+            </div>
+        </div>
+    </main>

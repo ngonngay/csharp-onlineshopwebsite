@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CategoryCreateRequest 
+<main>
+    <div class="container-fluid mt-4">
+        <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Tạo Mới Danh Mục</h2></div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item "><a asp-action="Index" asp-controller="Category">Danh Mục</a></li>
+            <li class="breadcrumb-item active">Tạo Mới </li>
+        </ol>
+        <div class="card mb-4 mt-2 col-6 col-lg-6 col-md-6">
+            <div class="card-header">
+                <i class="fa fa-list mr-1"></i>
+                Điền Thông Tin Danh Mục
+            </div>
+            <div class="card-body">
+                <div class="">
+                    <form asp-action="Create" asp-controller="Category" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        
+                        <div class="form-group">
+                            <label asp-for="@Model.Name"></label>
+                            <input asp-for="@Model.Name" class="form-control">
+                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Description"></label>
+                            <input asp-for="@Model.Description" class="form-control">
+                            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" asp-for="@Model.IsShowOnHome">
+                            <label class="form-check-label" asp-for="@Model.IsShowOnHome"></label>
+                        </div>
+                        <select name="Status" class="form-control" style="align-items:center" asp-items="@ViewBag.Status">
+                        </select>
+                        <button id="add-or-edit-role" type="submit" class="btn btn-primary mt-4 mr-5">Cập Nhật</button>
+                        <a class="btn btn-danger mt-4" asp-action="Index" asp-controller="Category">Hủy</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

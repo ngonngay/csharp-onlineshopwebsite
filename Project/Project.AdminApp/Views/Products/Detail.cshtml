@@ -1,0 +1,145 @@
+﻿@model ProductViewModel
+@{
+    Layout = "_IframeLayout";
+}
+<main>
+    <div class="container-fluid mt-4" style="background:white">
+        <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Thông tin sản phẩm Sản Phẩm</h2></div>
+        <ol class="breadcrumb mb-4">
+
+            <li class="breadcrumb-item active">Thông Tin Sản Phẩm</li>
+        </ol>
+
+        <div class="container d-inline-flex justify-content-end">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Thao tác
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" asp-action="Update" asp-controller="Products" asp-route-id=@Model.Id>Cập nhật</a>
+                    <a class="dropdown-item" asp-action="AssignCategory" asp-controller="Products" asp-route-id=@Model.Id>Phân Loại Danh Mục Sản Phẩm</a>
+                    <a class="dropdown-item" asp-action="AddImage" asp-controller="Products" asp-route-productId=@Model.Id>Tải Ảnh Lên</a>
+                    <a class="dropdown-item" asp-action="ManageImage" asp-controller="Products" asp-route-productId=@Model.Id>Quản lí ảnh</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (ViewBag.SuccessMsg != null)
+            {
+                <div id="msgAlert" class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
+        </div>
+        <partial name="_StatusMessage" model="@TempData["result"]" />
+        <div class="content  container-fluid mt-5">
+            <div class="row ">
+
+                <div class="col-12 col-lg-8">
+                    <div id="boxInfoBasic" class="card">
+                        <div class="card-header bg-light py-2 header-elements-inline">
+                            <h5 class="card-title font-weight-semibold"><i class="fa fa-info-circle"></i> Thông tin</h5>
+                            <div class="header-elements">
+                                <span class="mr-1 ">Trạng thái: </span><span type="button" class="badge badge-primary font-size-lg">Mới</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Mã: </label>
+                                        @Model.Id
+
+                                    </div>
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Tên: </label>
+                                        @Model.Name
+                                    </div>
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Danh mục: </label>
+                                        @Model.category
+                                    </div>
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Thương hiệu: </label>
+                                        TARTARUSS
+                                    </div>
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Tồn: </label>
+                                        @Model.Stock
+                                    </div>
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Ngày tạo: </label>
+                                        @Model.DateCreated
+                                    </div>
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Trạng Thái: </label>
+                                        @Model.status
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="input-group col-12 mb-2">
+                                        <label class="mr-1">Giá bán: </label>
+                                        @Model.Price
+                                        <div class="input-group col-12 mb-2 pl-0">
+                                            <label class="mr-1">Lượt Xem: </label>
+                                            @Model.ViewCount
+                                        </div>
+                                        <div class="input-group col-12 mb-2 pl-0">
+                                            <label class="mr-1">Mô Tả: </label>
+                                            <i>@Model.Description</i>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-lg-4">
+                    <div class="imageDetail mb-2 text-center">
+                        <img src="@Model.ThumbnailImage" width="200px">
+                    </div>
+                    <div id="boxInfoImage" class="card">
+                        <div class="card-header bg-light py-2 header-elements-inline">
+                            <h5 class="card-title font-weight-semibold"><i class="fa fa-info-circle mr-1"></i> Thông tin khác</h5>
+                            <div class="header-elements">
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-borderless table-xs mt-1 mb-1" data-hasblockrows="1">
+                                <tbody>
+                                    <tr>
+                                        <td class="">Loại sản phẩm</td>
+                                        <td class="text-right">Sản phẩm</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">Khối lượng</td>
+                                        <td class="text-right">300 gr</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kích thước</td>
+                                        <td class="text-right" title="Dài x Rộng x Cao">
+                                            15 x
+                                            10 x
+                                            5 cm
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kích thước</td>
+                                        <td class="text-right">XS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Màu sắc</td>
+                                        <td class="text-right"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

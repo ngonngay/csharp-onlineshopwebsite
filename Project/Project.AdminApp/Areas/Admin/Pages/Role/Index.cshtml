@@ -1,0 +1,69 @@
+﻿@page "/admin/role/"
+@model IndexModel
+
+
+    <main>
+        <div class="container-fluid mt-4">
+            <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Quyền Truy Cập</h2></div>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Dòng này chưa có ý tưởng ^^</li>
+            </ol>
+            <partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+            <form method="POST" class="my-1 d-inline">
+                <button class="btn btn-primary" asp-page="./Add"
+                        asp-page-handler="StartNewRole">
+                    Thêm mới Vị trí
+                </button>
+            </form>
+            <a class="btn btn-primary" asp-page="./User">Gán Vị trí cho tài khoản</a>
+            <div class="card mb-4 mt-2">
+                <div class="card-header">
+                    <i class="fa fa-list mr-1"></i>
+                    Danh Mục Quyền Truy Cập
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0" style="background-color:white;color:black">
+                            <thead>
+
+                                <tr>
+                                    <th>Mã vị trí </th>
+                                    <th>Tên</th>
+                                    <th>Tác vụ</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                @foreach (var role in @Model.roles)
+                                {
+                    <tr>
+                        <td>@role.Id</td>
+                        <td>@role.Name</td>
+                        <td>
+                            <form method="POST" class="d-inline">
+                                <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                                        asp-page="./Add" asp-page-handler="StartUpdate">
+                                    Cập nhật Vị trí
+                                </button>
+                            </form>
+                            <a name="rolename" class="btn btn-success btn-sm"
+                               asp-route-roleid="@role.Id"
+                               asp-area="Admin"
+                               asp-page="/RoleClaims/Index">Quyền hạn</a>
+                            <form method="POST" class="d-inline">
+                                <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm"
+                                        asp-page="./Delete">
+                                    Xóa Role
+                                </button>
+                            </form>
+                        </td>
+                    </tr>}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>

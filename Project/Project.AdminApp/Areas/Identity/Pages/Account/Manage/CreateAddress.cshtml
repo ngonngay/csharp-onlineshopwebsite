@@ -1,0 +1,69 @@
+﻿@page "/customer/address/create"
+@model Project.AdminApp.Areas.Identity.Pages.Account.Manage.CreateAddressModel
+@{
+    ViewData["Title"] = "Tạo Địa Chỉ Mới";
+    ViewData["ActivePage"] = ManageNavPages.Address;
+}
+<div class="container-fluid d-inline-flex justify-content-center mb-3"> <h4>Hãy Tạo Một Địa Chỉ Mới</h4></div>
+<partial name="_StatusMessage" model="@ViewBag.Message" />
+<div class="container-fluid d-flex justify-content-center" >
+    <div class="col-md-10">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" required />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FullName"></label>
+                <input asp-for="Input.FullName" class="form-control" required />
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+            <div>
+                <span asp-validation-for="cityId" class="text-danger"></span>
+                <select class="form-select form-select-sm mb-3 custom-select" id="city" aria-label=".form-select-sm" asp-for="cityId" required>
+                    <option value="" selected>Chọn tỉnh thành</option>
+                </select>
+            </div>
+
+            <div>
+                <span asp-validation-for="districtId" class="text-danger"></span>
+                <select class="form-select form-select-sm mb-3 custom-select" id="district" aria-label=".form-select-sm" asp-for="districtId" required>
+                    <option value="" selected>Chọn quận huyện</option>
+                </select>
+            </div>
+
+            <div>
+                <span asp-validation-for="wardId" class="text-danger"></span>
+                <select class="form-select form-select-sm mb-3 custom-select" id="ward" aria-label=".form-select-sm" asp-for="wardId" required>
+                    <option value="" selected>Chọn phường xã</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Address"></label>
+                <input asp-for="Input.Address" class="form-control" />
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+            <div>
+                @*<label class="Checkbox__StyledCheckbox-sc-75m08j-0 gkoeQY">
+                    @Html.CheckBox("IsDefault")<span class="checkbox-fake mr-2"></span><span class="label">Đặt làm địa chỉ mặc định</span>
+                </label>*@
+                <label class="Checkbox__StyledCheckbox-sc-75m08j-0 gkoeQY">
+                    <input class="" type="checkbox" asp-for="@Model.isDefault"><span class="checkbox-fake mr-2"></span><span class=" label">Đặt làm địa chỉ mặc định</span>
+                </label>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-danger">Lưu hồ sơ</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Client/js/render.js"></script>
+    <script>
+        var render = new RenderController();
+        render.initialize();
+    </script>
+}

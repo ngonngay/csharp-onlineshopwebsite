@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<CategoryViewModel>
+
+<main>
+    <div class="container-fluid mt-4">
+        <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Danh Mục Sản Phẩm</h2></div>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dòng này chưa có ý tưởng ^^</li>
+        </ol>
+        <div class="d-inline-flex justify-content-center mb-4 ">
+            <a class="btn btn-primary mr-5" asp-action="Create" asp-controller="Category">Tạo Mới Một Danh Mục Sản Phẩm</a>
+            <a class="btn btn-primary">Gán danh mục vào sản phẩm</a>
+        </div>
+        <partial name="_StatusMessage" model="@TempData["result"]"/>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fa fa-list mr-1"></i>
+                Danh Mục Sản Phẩm
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0" style="background-color:white;color:black">
+                        <thead>
+                            <tr>
+                                <th>Mã Danh Mục </th>
+                                <th>Tên</th>
+                                <th>Tác vụ</th>
+                                <th>Cho Phép Hiển Thị</th>
+                                <th>Tác vụ</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <th>@(item.IsShowOnHome ? "Hiển Thị" : "Không Hiển Thị")</th>
+                                    <th>@((item.Status==Project.Data.Enums.Status.Active) ? "Khả Dụng" : "Không Khả Dụng")</th>
+                                    <td>
+                                        <a class="btn btn-primary" asp-action="Edit" asp-controller="Category" asp-route-id=@item.Id>Cập Nhật Danh Mục</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

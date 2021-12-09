@@ -1,0 +1,133 @@
+﻿@model PageResult<OrderViewModel>
+
+    <main>
+        <div class="container-fluid" style="background:white">
+            <div class="container-fluid d-inline-flex justify-content-center mb-3"> <h2>Danh Sách Đơn Hàng</h2></div>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+
+            </ol>
+            <partial name="_StatusMessage" model="@TempData["result"]" />
+            <form asp-action="Order" asp-controller="Sale" method="get" style="font-size:15px;">
+                <div class="row container d-inline-flex justify-content-center mb-4 ">
+                    <input id="id-target" name="orderId" placeholder="Mã hóa đơn" value=@ViewBag.orderId class="mr-3 col-12 col-md-3 col-lg-2 col-sm-12 mb-2" type="number">
+                    <input id="product-name-target" name="productName" placeholder="Tên sản phẩm" value=@ViewBag.productName class="mr-3 col-12 col-md-3 col-lg-2 mb-2">
+                    <input id="product-name-target" name="username" placeholder="Tên khách hàng" value=@ViewBag.username class="mr-3 col-12 col-md-3 col-lg-2 mb-2">
+                    <div class="form-group mb-2 mr-3 col-12 col-md-4 col-lg-3 d-inline-flex justify-content-center">
+                        <label for="categoryTarget" style="min-width:150px;padding:6px 12px" class="mb-0">Trạng thái hóa đơn</label>
+                        <select name="status" asp-items="@ViewBag.Status" class="form-control" style="align-items:center">
+                            <option value="-1">Tất Cả</option>
+                        </select>
+                    </div>
+                   
+                    <button type="submit" class="btn btn-danger  mb-2">Lọc</button>
+                </div>
+            </form>
+
+            <table class="table table-bordered" style="font-size:12px">
+                <thead>
+                    <tr>
+                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">Khách hàng</th>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Hình thức vận chuyển</th>
+                        <th scope="col">Tổng giá đơn hàng</th>
+                        <th scope="col">Ghi chú</th>
+                        <th scope="col">Trạng thái</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        if (item.ordertItem.Count() > 0)
+                        {
+                            <tr>
+                                <td rowspan="@(item.ordertItem.Count()>5?5:item.ordertItem.Count())">
+                                    @* @Html.ActionLink(item.OrderId.ToString(), "Detail", new { id = item.OrderId, rowspan = item.ordertItem.Count() }, new { @class = "openIframeDetail" })*@
+                                    <div><a asp-controller="Sale" asp-action="OrderDetail" asp-route-orderId="@item.OrderId" class="openIframeDetail" rowspan="@item.ordertItem.Count()">@item.OrderId</a></div>
+                                    <span class="font-size-sm" title="@item.OrderDate">@item.OrderDate</span>
+                                </td>
+                                <td rowspan="@item.ordertItem.Count()" class="customer" style="max-width:220px; word-wrap:break-word">
+                                    <div>
+                                        <a asp-controller="User" asp-action="Details" asp-route-id="@item.User.Id" class="openIframeDetail" rowspan="@item.ordertItem.Count()">@item.ShipPhoneNumber</a>
+                                    </div>
+                                    <p>@item.ShipName</p>
+                                    <p style="font-size:12px">@String.Join(",", item.Districst, item.City)</p>
+                                </td>
+                                <td style="max-width:220px; word-wrap:break-word">@String.Join(" - ", item.ordertItem[0].Name, item.ordertItem[0].Size)</td>
+                                <td class="text-right ">@String.Format("{0:0,0 đ}", @item.ordertItem[0].Price)</td>
+                                <td class="text-right ">@item.ordertItem[0].Quantity</td>
+                                <td rowspan="@item.ordertItem.Count()" class="text-center align-content-center">
+                                    TVC
+                                </td>
+                                <td rowspan="@item.ordertItem.Count()" class="text-center align-content-center">
+                                    @if (item.total == 0)
+                                    {
+                                        decimal total = 0;
+                                        foreach (var price in item.ordertItem)
+                                        {
+                                            total += price.Price;
+                                        }
+                                        @String.Format("{0:0,0 đ}", total)
+                                    }
+                                    else
+                                    {
+                                        @String.Format("{0:0,0 đ}", @item.total)
+                                    }
+
+                                </td>
+                                <td rowspan="@item.ordertItem.Count()">
+                                    <div>
+                                        <p style=" border-bottom:1px dashed #000;padding-bottom:5px;">@item.StaffNote</p>
+                                        <p>@item.CustomerNote</p>
+                                    </div>
+                                </td>
+                                <td rowspan="@item.ordertItem.Count()">
+                                    <div class="dropdown" style="width:auto">
+                                        <button class="btn @(item.Status ==OrderStatus.Canceled?" btn-danger ":(item.Status==OrderStatus.Success)?" btn-success ":(item.Status==OrderStatus.InProgress)?" btn-secondary":"btn-primary") dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @item.Status.DisplayName()
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+
+                                            <a class="dropdown-item">Tạo hóa đơn bán lẻ</a>
+                                            <a class="dropdown-item">In </a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @if (item.ordertItem.Count() > 1 )
+                            {
+                                for (int i = 1; i < item.ordertItem.Count(); i++)
+                                {
+                                    <tr>
+                                        <td style="max-width:220px; word-wrap:break-word;">@String.Join(" - ", item.ordertItem[i].Name, item.ordertItem[i].Size)</td>
+                                        <td class="text-right ">@String.Format("{0:0,0 đ}", @item.ordertItem[i].Price)</td>
+                                        <td class="text-right ">@item.ordertItem[i].Quantity</td>
+                                    </tr>
+                                }
+                            }
+                            
+                        }
+
+                    }
+                </tbody>
+            </table>
+            <div class="row container d-inline-flex justify-content-end mb-4">
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
+        </div>
+    </main>
+
+    @section Scripts{
+        <script type='text/javascript' src='/js/jquery.simplemodal.js'></script>
+        <script type='text/javascript' src='/js/basic.js'></script>
+
+    }
+    @section Css{
+        <link type='text/css' href='/css/basic.css' rel='stylesheet' media='screen' />
+    }
